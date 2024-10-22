@@ -1,0 +1,240 @@
+import React, { useState } from 'react';
+import './PizzaPage.css';  // Create a CSS file to style the page
+
+const PizzaPage = () => {
+  // Pizza varieties with their different options and prices
+  const pizzaVarieties = [
+    {
+      name: "Paratha Items",
+      img: "images/Biryani.jpg",
+      options: [
+        { name: "Aalu partha", price: "Rs.30" },
+        { name: "Onion partha", price: "Rs.34" },
+        { name: "abc partha", price: "Rs.40" },
+        { name: "def partha", price: "Rs.43" },
+        { name: "pqr partha", price: "Rs.38" },
+        { name: "cheese partha", price: "Rs.48" },
+        { name: "plain partha", price: "Rs.22" },
+        { name: "Tawa partha", price: "Rs.5" },
+        { name: "lachha partha", price: "Rs.26" },
+      ]
+    },
+    {
+      name: "Sabji Items",
+      img: "images/Biryani.jpg",
+      options: [
+        { name: "Dal Tadka", price: "Rs.37" },
+        { name: "Dal fry", price: "Rs.37" },
+        { name: "Dal Fry Butter", price: "Rs.38" },
+        { name: "Dal Fry Tomato", price: "Rs.38" },
+        { name: "Channa Masala", price: "Rs.37" },
+        { name: "Channa Butter Masala ", price: "Rs.39" },
+        { name: "Paneer Masala", price: "Rs.40" },
+        { name: "Mattar Masala", price: "Rs.40" },
+        { name: "Paneer Butter Masala", price: "Rs.45" },
+        { name: "Chilli Paneer", price: "Rs.45" },
+        { name: "Aaloo Gobi", price: "Rs.38" },
+        { name: "Vendi Masala", price: "Rs.38" },
+        { name: "Aaloo Onion fry", price: "Rs.28" },
+        { name: "Chilli Baby Corn", price: "Rs.60" },
+        { name: "Chilli Gobi", price: "Rs.40" },
+        { name: "Tomato Onion", price: "Rs.38" },
+        { name: "Egg Tomato Curry", price: "Rs.48" },
+        { name: "Egg curry(2 Egg)", price: "Rs.40" },
+        { name: "Egg Tadka", price: "Rs.55" },
+        { name: "Mushroom Masala", price: "Rs.50" },
+      ]
+    },
+
+    {
+      name: "Chicken Items",
+      img: "images/Biryani.jpg",
+      options: [
+        { name: "Chicken Curry", price: "Rs.71" },
+        { name: "Chicken Masala", price: "Rs.78" },
+        { name: "Chicken Butter Masala", price: "Rs.82" },
+        { name: "Chilli Chicken", price: "Rs.85" },
+        { name: "Boiled Chicken", price: "Rs.82" },
+        { name: "Roast Chicken", price: "Rs.82" },
+        { name: "Chicken Chaap", price: "Rs.100" },
+      ]
+    },
+
+    {
+        name: "Maggi Items",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "plain Maggi", price: "Rs.26" },
+          { name: "Fried Maggi", price: "Rs.30" },
+          { name: "Veg Fried Maggi", price: "Rs.32" },
+          { name: "Butter Fried Maggi", price: "Rs.36" },
+          { name: "Egg fried Maggi(2 Egg)", price: "Rs.45" },
+          { name: "Bhatu Maggi", price: "Rs.35" },
+          { name: "Bhatu Fried Maggi", price: "Rs.38" },
+          { name: "Masala Maggi ", price: "Rs.30" },
+          { name: "Masala fried Maggi", price: "Rs.35" },
+          { name: "sukhi Butter Maggi", price: "Rs.39" },
+          { name: "Pouch Maggi(2 Egg)", price: "Rs.45" },
+        ]
+      },
+
+      {
+        name: "Rice Items",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "plain Rice", price: "Rs.34" },
+          { name: "Veg Fried Rice", price: "Rs.39" },
+          { name: "Egg Fried Rice", price: "Rs.60" },
+          { name: "Tomato Rice", price: "Rs.44" },
+          { name: "Jeera Rice(2 Egg)", price: "Rs.36" },
+          { name: "Miku Rice", price: "Rs.52" },
+          { name: "Macho Rice", price: "Rs.62" },
+          { name: "Paneer Fried Rice", price: "Rs.54" },
+          { name: "Mushroom Rice", price: "Rs.74" },
+          { name: "Chicken Fried Rice", price: "Rs.94" },
+          { name: "Chicken Biryani", price: "Rs.94" },
+          { name: "Mixed Fried Rice", price: "Rs.100" },
+        ]
+      },
+
+      {
+        name: "Bread Items",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "Bread Omlet", price: "Rs.38" },
+          { name: "Egg Bread Bhujia", price: "Rs.38" },
+          { name: "Veg Bhujia", price: "Rs.27" },
+          { name: "Omlet (2 Egg)", price: "Rs.27" },
+          { name: "Egg Pouch (2 Egg)", price: "Rs.27" },
+          { name: "Egg Bhujia (2 Egg)", price: "Rs.27" },
+          { name: "Boiled Egg (2 Egg)", price: "Rs.20" },
+          { name: "Goyel Pouch", price: "Rs.38" },
+          { name: "Cheese Omlet", price: "Rs.42" },
+          { name: "Bread Cheese Omlet(2 Egg)", price: "Rs.57" },
+          { name: "Chicken Drumstick", price: "Rs.80" },
+          { name: "Chicken Pakoda", price: "Rs.100" },
+        ]
+      },
+
+      
+      {
+        name: "Dosa Items",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "Plain Dosa", price: "Rs.27" },
+          { name: "Masala Dosa", price: "Rs.34" },
+          { name: "Onion Dosa", price: "Rs.34" },
+          { name: "Plain Cheese Dosa", price: "Rs.40" },
+          { name: "Cheese Masala Dosa", price: "Rs.44" },
+          { name: "Cheese Onion Dosa", price: "Rs.45" },
+          { name: "Egg Dosa", price: "Rs.44" },
+          { name: "Masala Uthapam", price: "Rs.34" },
+          { name: "Onion Uthapam", price: "Rs.34" },
+          { name: "Cheese Masala Uthapam", price: "Rs.45" },
+          { name: "Cheese Onion Uthapam", price: "Rs.45" },
+          { name: "Paneer Dosa", price: "Rs.39" },
+          { name: "Egg Cheese Dosa", price: "Rs.53" },
+        ]
+      },
+
+
+      {
+        name: "Sandwich",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "Veg sandwich", price: "Rs.23" },
+          { name: "Veg Butter sandwich", price: "Rs.29" },
+          { name: "Aaloo sandwich", price: "Rs.24" },
+          { name: "Veg Cheese Sandwich", price: "Rs.44" },
+          { name: "Ram Sandwich", price: "Rs.48" },
+          { name: "Egg Sandwich", price: "Rs.34" },
+          { name: "Egg Cheese Sandwich", price: "Rs.56" },
+        ]
+      },
+
+      {
+        name: "Curd Item",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "Masala Curd", price: "Rs.25" },
+          { name: "Onion Raita", price: "Rs.25" },
+          { name: "Mixed Raita", price: "Rs.30" },
+          { name: "Pappu", price: "Rs.20" },
+        ]
+      },
+
+
+      {
+        name: "Noodle Item",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "Veg Choumin", price: "Rs.28" },
+          { name: "Egg Choumin", price: "Rs.45" },
+          { name: "Chicken Chowmin", price: "Rs.62" },
+          { name: "Mixed Chowmeen", price: "Rs.67" },
+        ]
+      },
+
+      {
+        name: "Roll Item",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "Veg Roll", price: "Rs.22" },
+          { name: "Egg Roll (2 Egg)", price: "Rs.38" },
+          { name: "Chicken Roll", price: "Rs.60" },
+          { name: "Paneer Roll", price: "Rs.39" },
+        ]
+      },
+
+      {
+        name: "Beverages",
+        img: "images/Biryani.jpg",
+        options: [
+          { name: "Tea", price: "Rs.10" },
+          { name: "Hot Cofee", price: "Rs.17" },
+          { name: "Haldi Milk", price: "Rs.17" },
+          { name: "Bourn Vita", price: "Rs.30" },
+          { name: "Horlicks", price: "Rs.30" },
+          { name: "Hot Chocolate", price: "Rs.32" },
+        ]
+      },
+
+  ];
+
+  // State to track which pizza variety's options are visible
+  const [expandedPizza, setExpandedPizza] = useState(null);
+
+  const toggleOptions = (index) => {
+    setExpandedPizza(expandedPizza === index ? null : index);  // Toggle the expansion
+  };
+
+  return (
+    <div className="pizza-page">
+      <h2>C A R L O S</h2>
+      <div className="pizza-container">
+        {pizzaVarieties.map((pizza, index) => (
+          <div key={index} className="pizza-card">
+            <img src={pizza.img} alt={pizza.name} className="pizza-img" />
+            <div className="pizza-info">
+              <h3>{pizza.name}</h3>
+              <button onClick={() => toggleOptions(index)}>
+                {expandedPizza === index ? "▼ Hide Options" : "▶ Show Options"}
+              </button>
+              {expandedPizza === index && (
+                <div className="pizza-options">
+                  {pizza.options.map((option, optIndex) => (
+                    <div key={optIndex} className="pizza-option">
+                      <p>{option.name} - {option.price}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default PizzaPage;
