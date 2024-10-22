@@ -1,0 +1,50 @@
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import './App.css';
+import PizzaPage from './PizzaPage';
+import BurgerPage from './BurgerPage';
+import PastaPage from './PastaPage';
+import SushiPage from './SushiPage';
+
+const App = () => {
+  const foods = [
+    { name: "Pizza", img: "images/Biryani.jpg", path: "/pizza"},
+    { name: "Burger", img: "https://bit.ly/3PP0SaM", path: "/burger"},
+    { name: "Pasta", img: "https://bit.ly/3MchLiw", path: "/pasta"},
+    { name: "Sushi", img: "https://bit.ly/46ZY9OB", path: "/sushi"}
+  ];
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Online Food Ordering</h1>
+        <p>Delicious food delivered to your door.</p>
+      </header>
+
+      {/* Food options listing */}
+      <Routes>
+        <Route path="/" element={
+          <div className="food-container">
+            {foods?.map((food, index) => (
+              <div key={index} className="food-item">
+                <img src={food.img} alt={food.name} />
+                <h3>{food.name}</h3>
+                <Link to={food.path}>
+                  <button>Order Now</button>
+                </Link>
+              </div>
+            ))}
+          </div>
+        } />
+        
+        {/* Route for individual pages */}
+        <Route path="/pizza" element={<PizzaPage />} />
+        <Route path="/burger" element={<BurgerPage />} />
+        <Route path="/pasta" element={<PastaPage />} />
+        <Route path="/sushi" element={<SushiPage />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
